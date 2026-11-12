@@ -1,0 +1,894 @@
+@import url('https://fonts.googleapis.com/css2?family=Almendra+SC&family=Uncial+Antiqua&family=MedievalSharp&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Crimson Text', serif;
+    background-color: #080301;
+    color: #2b1810;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ==========================================================
+   ANIMACIÓN DE ANTORCHAS Y RESPLANDOR
+   ========================================================== */
+.mastil-antorcha {
+    position: fixed;
+    top: 15%;
+    width: 48px;
+    height: 480px;
+    z-index: 5;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.antorcha-izq { left: 16px; }
+.antorcha-der { right: 16px; }
+
+/* Poste de madera rústica tallada */
+.soporte-hierro {
+    position: absolute;
+    top: 60px;
+    width: 14px;
+    height: 420px;
+    background: linear-gradient(90deg, #1f0f06 0%, #3d2110 50%, #150903 100%);
+    border: 1px solid #663b1a;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+/* Cazoleta de hierro / bronce */
+.cazoleta-bronce {
+    position: absolute;
+    top: 40px;
+    width: 44px;
+    height: 26px;
+    background: linear-gradient(180deg, #8b5a2b 0%, #3d2110 100%);
+    border: 2px solid #c9933b;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.9);
+}
+
+/* Fuego que titila */
+.fuego-llama {
+    position: absolute;
+    top: -15px;
+    width: 32px;
+    height: 60px;
+    background: radial-gradient(ellipse at bottom, #fff7a3 0%, #ff8c00 55%, #c41e00 85%, transparent 100%);
+    border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+    animation: flamaFuego 1.6s infinite ease-in-out alternate;
+    filter: drop-shadow(0 0 18px #ff7b00) drop-shadow(0 0 35px #ff3700);
+}
+
+.chispa-nucleo {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 22px;
+    background: #ffffff;
+    border-radius: 50%;
+    opacity: 0.9;
+    filter: blur(1px);
+}
+
+.resplandor-antorcha {
+    position: absolute;
+    top: -40px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 120, 0, 0.22) 0%, rgba(255, 60, 0, 0.08) 50%, transparent 80%);
+    animation: resplandorParpadeo 2s infinite alternate ease-in-out;
+}
+
+@keyframes flamaFuego {
+    0% { transform: scale(0.95, 0.95) rotate(-2deg); }
+    50% { transform: scale(1.08, 1.15) rotate(2deg); }
+    100% { transform: scale(0.98, 1.05) rotate(-1deg); }
+}
+
+@keyframes resplandorParpadeo {
+    0% { opacity: 0.65; transform: scale(0.92); }
+    100% { opacity: 0.95; transform: scale(1.12); }
+}
+
+/* ==========================================================
+   PANTALLA 1: LOGIN
+   ========================================================== */
+.login-pantalla {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background: url('https://images.unsplash.com/photo-1533158307587-828f0a76ef46?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+}
+
+.overlay-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(14, 7, 3, 0.5) 0%, rgba(4, 2, 1, 0.95) 100%);
+    pointer-events: none;
+}
+
+.pergamino-login {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(135deg, #fbf2dc 0%, #f7e3ba 50%, #edd1a1 100%);
+    border: 4px solid #8b5a2b;
+    border-radius: 14px;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(212, 175, 55, 0.5), inset 0 0 45px rgba(121, 69, 21, 0.3);
+    padding: 42px 40px;
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    text-align: center;
+}
+
+.emblema-wrapper {
+    display: flex;
+    justify-content: center;
+    filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.85));
+}
+
+.pergamino-login h1 {
+    font-family: 'Uncial Antiqua', cursive;
+    font-size: 30px;
+    letter-spacing: 2px;
+    color: #4a1e06;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.7);
+}
+
+.subtitulo {
+    font-family: 'Almendra SC', serif;
+    font-size: 16.5px;
+    color: #633c1d;
+    letter-spacing: 1px;
+}
+
+.runas-div {
+    color: #9c6c2b;
+    font-size: 17px;
+    letter-spacing: 6px;
+    border-top: 1px dashed rgba(139, 90, 43, 0.6);
+    border-bottom: 1px dashed rgba(139, 90, 43, 0.6);
+    padding: 8px 0;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 8px;
+}
+
+.campo label {
+    font-family: 'MedievalSharp', cursive;
+    font-size: 16.5px;
+    color: #49230d;
+}
+
+.campo input, .campo select, .campo textarea {
+    padding: 12px 16px;
+    border: 2px solid #8b5a2b;
+    border-radius: 8px;
+    background: #fffdf8;
+    font-family: 'Crimson Text', serif;
+    font-size: 18px;
+    color: #2b1810;
+    outline: none;
+}
+
+.campo input:focus, .campo select:focus, .campo textarea:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+}
+
+.btn-medieval {
+    margin-top: 10px;
+    padding: 15px;
+    background: linear-gradient(180deg, #872300 0%, #460f00 100%);
+    color: #ffd875;
+    font-family: 'Uncial Antiqua', cursive;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    border: 2px solid #d4af37;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.7);
+    transition: all 0.25s;
+}
+
+.btn-medieval:hover {
+    background: linear-gradient(180deg, #aa2e02 0%, #611500 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 0 24px rgba(212, 175, 55, 0.9);
+}
+
+/* ==========================================================
+   PANTALLA 2: TABERNA NÓRDICA AMPLIADA
+   ========================================================== */
+.taberna-pantalla {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 70px; /* Deja espacio para las antorchas laterales */
+    background: url('https://images.unsplash.com/photo-1578926636548-b6bdc089d961?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+}
+
+.escenario-completo {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1650px;
+    height: 94vh;
+    display: grid;
+    grid-template-columns: 360px 1fr 380px;
+    gap: 20px;
+}
+
+/* PANELES LATERALES */
+.panel-lateral {
+    background: rgba(22, 11, 5, 0.94);
+    border: 3px solid #8b5a2b;
+    border-radius: 14px;
+    box-shadow: 0 0 35px rgba(0,0,0,0.85), inset 0 0 20px rgba(139, 90, 43, 0.35);
+    padding: 20px;
+    color: #e4cda7;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+}
+
+/* TABLÓN DE EDICTOS PÚBLICOS */
+.tablon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #8b5a2b;
+    padding-bottom: 12px;
+}
+
+.tablon-header h3 {
+    font-family: 'Almendra SC', serif;
+    font-size: 17px;
+    color: #ffd875;
+    letter-spacing: 1px;
+}
+
+.tablon-header small {
+    font-size: 12px;
+    color: #c9a063;
+    display: block;
+}
+
+.btn-nuevo-contrato {
+    background: linear-gradient(180deg, #7c1f00 0%, #460f00 100%);
+    color: #ffd875;
+    border: 2px solid #d4af37;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: 'Almendra SC', serif;
+    font-size: 13.5px;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    transition: 0.2s;
+}
+
+.btn-nuevo-contrato:hover {
+    background: linear-gradient(180deg, #a12b02 0%, #571300 100%);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.7);
+}
+
+.lista-contratos-scroll {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 4px;
+}
+
+.sin-contratos {
+    text-align: center;
+    padding: 30px 10px;
+    color: #a8835b;
+    font-style: italic;
+    font-size: 15px;
+}
+
+.sin-contratos span {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.bando-contrato-card {
+    background: linear-gradient(135deg, #fbf2dc 0%, #f4e1ba 100%);
+    border: 2px solid #c9933b;
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: #2b1810;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cabecera-bando {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cabecera-bando b {
+    font-family: 'MedievalSharp', cursive;
+    font-size: 16px;
+    color: #632205;
+}
+
+.sello-oro {
+    font-size: 10px;
+    background: #8b2500;
+    color: #ffd875;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.desc-bando {
+    font-size: 15px;
+    line-height: 1.35;
+    color: #3b2214;
+}
+
+.pie-bando {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    border-top: 1px dotted rgba(139, 90, 43, 0.4);
+    padding-top: 4px;
+    color: #7c4c2a;
+}
+
+.recompensa-tag {
+    font-weight: bold;
+    color: #8b2500;
+}
+
+.taberna-carta {
+    border-top: 2px solid #8b5a2b;
+    padding-top: 12px;
+}
+
+.taberna-carta h4 {
+    font-family: 'Almendra SC', serif;
+    color: #ffd875;
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+
+.taberna-carta ul {
+    font-size: 14.5px;
+    padding-left: 20px;
+    line-height: 1.6;
+}
+
+/* ==========================================================
+   PANEL DERECHO: GRAN CÓDIGO DE LEYES
+   ========================================================== */
+.panel-leyes {
+    background: linear-gradient(180deg, #180d07 0%, #110803 100%);
+    border: 3px solid #8b5a2b;
+}
+
+.tablon-header-estela {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 2px solid #8b5a2b;
+    padding-bottom: 12px;
+}
+
+.tablon-header-estela h3 {
+    font-family: 'Uncial Antiqua', cursive;
+    font-size: 17px;
+    color: #ffd875;
+    letter-spacing: 1px;
+}
+
+.runa-sacra {
+    font-size: 16px;
+    color: #c9933b;
+}
+
+.intro-leyes {
+    font-size: 14.5px;
+    font-style: italic;
+    color: #c9a063;
+    line-height: 1.4;
+    text-align: center;
+    border-bottom: 1px dashed rgba(139, 90, 43, 0.5);
+    padding-bottom: 10px;
+}
+
+.lista-leyes-piedra {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.ley-item {
+    display: flex;
+    gap: 12px;
+    background: rgba(247, 231, 206, 0.06);
+    border-left: 3px solid #d4af37;
+    padding: 10px 12px;
+    border-radius: 4px;
+}
+
+.num-runa {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: #ffd875;
+    line-height: 1;
+}
+
+.ley-item b {
+    font-family: 'Almendra SC', serif;
+    color: #ffd875;
+    font-size: 15px;
+    display: block;
+    margin-bottom: 3px;
+    letter-spacing: 0.5px;
+}
+
+.ley-item p {
+    font-size: 14.5px;
+    line-height: 1.4;
+    color: #e4cda7;
+}
+
+.pie-estela {
+    text-align: center;
+    font-family: 'Almendra SC', serif;
+    font-size: 13px;
+    color: #c9933b;
+    letter-spacing: 2px;
+    border-top: 1px dashed rgba(139, 90, 43, 0.5);
+    padding-top: 8px;
+}
+
+/* ==========================================================
+   SALÓN CENTRAL: CHAT EN VIVO
+   ========================================================== */
+.taberna-marco {
+    display: flex;
+    flex-direction: column;
+    background: rgba(18, 8, 3, 0.94);
+    border: 3px solid #8b5a2b;
+    border-radius: 14px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.95), 0 0 25px rgba(212, 175, 55, 0.3);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.taberna-header {
+    background: linear-gradient(90deg, #381706 0%, #1e0b03 100%);
+    border-bottom: 3px solid #8b5a2b;
+    padding: 14px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #f7e7ce;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-brand h2 {
+    font-family: 'Uncial Antiqua', cursive;
+    font-size: 22px;
+    letter-spacing: 1.5px;
+    color: #ffd875;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+}
+
+.header-brand small {
+    font-family: 'Almendra SC', serif;
+    font-size: 14px;
+    color: #c9a063;
+    display: block;
+}
+
+.chapa-aventurero {
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid #d4af37;
+    padding: 8px 18px;
+    border-radius: 25px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: #f7e7ce;
+}
+
+.rol-icono {
+    font-size: 22px;
+}
+
+.datos-aventurero {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+
+.etiqueta-rango {
+    font-size: 11px;
+    color: #d4af37;
+    text-transform: uppercase;
+    font-family: 'Almendra SC', serif;
+    letter-spacing: 1px;
+}
+
+.datos-aventurero b {
+    font-size: 16px;
+}
+
+/* LISTA DE MENSAJES */
+.pergamino-mensajes {
+    flex: 1;
+    overflow-y: auto;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: rgba(8, 3, 1, 0.72);
+    list-style: none;
+}
+
+.mensaje-fila {
+    display: flex;
+    width: 100%;
+}
+
+.fila-sistema {
+    justify-content: center;
+}
+
+.anuncio-heraldo {
+    background: rgba(65, 28, 10, 0.92);
+    border: 1px dashed #d4af37;
+    color: #ffd875;
+    padding: 8px 22px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-style: italic;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.7);
+}
+
+.fila-mia {
+    justify-content: flex-end;
+}
+
+.fila-otro {
+    justify-content: flex-start;
+}
+
+.burbuja-pergamino {
+    max-width: 78%;
+    padding: 12px 18px;
+    border-radius: 10px;
+    box-shadow: 2px 4px 18px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.fila-mia .burbuja-pergamino {
+    background: linear-gradient(135deg, #fff9ed 0%, #f7e4be 100%);
+    border: 2px solid #c9933b;
+    border-bottom-right-radius: 2px;
+}
+
+.fila-otro .burbuja-pergamino {
+    background: linear-gradient(135deg, #eee1c8 0%, #dfcfb1 100%);
+    border: 2px solid #8b6b4f;
+    border-bottom-left-radius: 2px;
+}
+
+.autor-tag {
+    font-family: 'MedievalSharp', cursive;
+    font-size: 14.5px;
+    font-weight: bold;
+    color: #7c2d12;
+    border-bottom: 1px dotted rgba(124, 45, 18, 0.4);
+    padding-bottom: 3px;
+}
+
+.cuerpo-texto {
+    font-size: 19px;
+    line-height: 1.4;
+    color: #261102;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.sello-hora {
+    font-size: 12px;
+    color: #7c5c43;
+    align-self: flex-end;
+    font-style: italic;
+}
+
+/* BANDO PÚBLICO CLAVADO EN EL CHAT */
+.fila-contrato {
+    justify-content: center;
+}
+
+.bando-proclamacion-chat {
+    width: 90%;
+    background: linear-gradient(135deg, #fff2d1 0%, #fae2b1 100%);
+    border: 3px solid #b82d00;
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 0 25px rgba(255, 60, 0, 0.35), 0 5px 15px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.sello-bando-top {
+    font-family: 'Almendra SC', serif;
+    font-size: 13.5px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #8b2500;
+    border-bottom: 2px solid #8b2500;
+    padding-bottom: 4px;
+}
+
+.bando-proclamacion-chat h3 {
+    font-family: 'Uncial Antiqua', cursive;
+    font-size: 21px;
+    color: #4a1703;
+}
+
+.cuerpo-edicto {
+    font-size: 18px;
+    color: #2b1810;
+    line-height: 1.4;
+}
+
+.meta-edicto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13.5px;
+    border-top: 1px dashed rgba(139, 37, 0, 0.4);
+    padding-top: 6px;
+    color: #63290b;
+}
+
+.meta-edicto b {
+    color: #b82d00;
+    font-size: 15px;
+}
+
+/* IMÁGENES / PERGAMINOS */
+.contenedor-retrato {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 4px;
+}
+
+.etiqueta-mapa {
+    font-size: 13px;
+    font-style: italic;
+    color: #8b2500;
+    font-weight: bold;
+}
+
+.imagen-taberna {
+    max-width: 100%;
+    max-height: 340px;
+    border-radius: 8px;
+    border: 3px solid #8b5a2b;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+    object-fit: cover;
+}
+
+/* BARRA DE ACCIÓN */
+.taberna-barra {
+    padding: 12px 18px;
+    background: #120601;
+    border-top: 3px solid #8b5a2b;
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.btn-pergamino-upload {
+    background: #361504;
+    border: 2px solid #d4af37;
+    color: #f7e7ce;
+    font-size: 22px;
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.btn-pergamino-upload:hover {
+    background: #5a2406;
+    box-shadow: 0 0 14px rgba(212, 175, 55, 0.7);
+}
+
+.contenedor-input-auto {
+    flex: 1;
+    display: flex;
+    background: #fffdf8;
+    border: 2px solid #8b5a2b;
+    border-radius: 10px;
+    padding: 8px 14px;
+    transition: all 0.2s;
+}
+
+.contenedor-input-auto:focus-within {
+    border-color: #d4af37;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+}
+
+.contenedor-input-auto textarea {
+    width: 100%;
+    height: 52px;
+    max-height: 160px;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: 'Crimson Text', serif;
+    font-size: 19px;
+    line-height: 1.35;
+    color: #2b1810;
+    overflow-y: auto;
+}
+
+.btn-vocalizar {
+    height: 52px;
+    padding: 0 24px;
+    background: linear-gradient(180deg, #7c1f00 0%, #460f00 100%);
+    color: #ffd875;
+    font-family: 'Uncial Antiqua', cursive;
+    font-size: 15px;
+    letter-spacing: 1px;
+    border: 2px solid #d4af37;
+    border-radius: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.btn-vocalizar:hover {
+    background: linear-gradient(180deg, #992601 0%, #571300 100%);
+    box-shadow: 0 0 16px rgba(212, 175, 55, 0.75);
+}
+
+/* ==========================================================
+   MODAL PARA CLAVAR CONTRATO
+   ========================================================== */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+}
+
+.modal-pergamino {
+    background: linear-gradient(135deg, #fbf2dc 0%, #f4e1ba 100%);
+    border: 4px solid #8b5a2b;
+    border-radius: 12px;
+    padding: 30px;
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.9), 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+.modal-pergamino h3 {
+    font-family: 'Uncial Antiqua', cursive;
+    font-size: 22px;
+    color: #4a1e06;
+}
+
+.modal-pergamino p {
+    font-size: 15px;
+    color: #633c1d;
+    font-style: italic;
+    margin-top: -6px;
+}
+
+.modal-acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.btn-cancelar {
+    padding: 10px 18px;
+    background: #3d2110;
+    color: #e4cda7;
+    border: 1px solid #8b5a2b;
+    border-radius: 8px;
+    font-family: 'Almendra SC', serif;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* ==========================================================
+   RESPONSIVIDAD
+   ========================================================== */
+@media (max-width: 1300px) {
+    .escenario-completo {
+        grid-template-columns: 320px 1fr 320px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .taberna-pantalla {
+        padding: 14px;
+    }
+    .mastil-antorcha {
+        display: none;
+    }
+    .escenario-completo {
+        grid-template-columns: 1fr;
+    }
+    .panel-lateral {
+        display: none;
+    }
+}
